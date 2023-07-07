@@ -3,3 +3,5 @@
 *_demo
 .config.mk
 trace.vcd
+.DS_Store
+run/
