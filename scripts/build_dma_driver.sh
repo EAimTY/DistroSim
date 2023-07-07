@@ -1,6 +1,6 @@
 #!/bin/bash
 
-GIT_DIR=${cd $(dirname $0)/..; pwd}
+GIT_DIR=$(cd $(dirname $0)/..; pwd)
 RUN_DIR=${GIT_DIR}/run
 mkdir -p ${RUN_DIR}
 
@@ -9,4 +9,4 @@ mkdir -p ${RUN_DIR}
 cd ${RUN_DIR}
 git clone https://github.com/Xilinx/dma_ip_drivers.git
 cd dma_ip_drivers/QDMA/linux-kernel
-make TANDEM_BOOT_SUPPORTED=1 KDIR=/usr/src/linux-headers-${uname -r}
+make TANDEM_BOOT_SUPPORTED=1 KDIR=/usr/src/linux-headers-$(uname -r)

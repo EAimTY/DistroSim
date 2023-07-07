@@ -1,6 +1,6 @@
 #!/bin/bash
 
-GIT_DIR=${cd $(dirname $0)/..; pwd}
+GIT_DIR=$(cd $(dirname $0)/..; pwd)
 RUN_DIR=${GIT_DIR}/run
 mkdir -p ${RUN_DIR}
 
