@@ -16,4 +16,4 @@ make TANDEM_BOOT_SUPPORTED=1 KDIR=/usr/src/linux-headers-$(uname -r)
 
 mkdir -p $TEMP_FILE_PATH
 rm -rf $TEMP_FILE_PATH/dma_ip_drivers
-cp $RUN_DIR/dma_ip_drivers $TEMP_FILE_PATH
+cp -r $RUN_DIR/dma_ip_drivers $TEMP_FILE_PATH
