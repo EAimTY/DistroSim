@@ -25,6 +25,7 @@ UBUNTU_INITRD_PATH="${RUN_DIR}/ubuntu-22.04-server-cloudimg-amd64-initrd-generic
 BIOS_PATH="${RUN_DIR}/qemu/pc-bios/bios-256k.bin"
 TEMP_FILE_PATH="${RUN_DIR}/tmp"
 
+rm -rf ubuntu-22.04-server-cloudimg-amd64.img cloud_init.img ubuntu-22.04-server-cloudimg-amd64-vmlinuz-generic ubuntu-22.04-server-cloudimg-amd64-initrd-generic
 wget $RELEASE_URL/ubuntu-22.04-server-cloudimg-amd64.img
 qemu-img resize ubuntu-22.04-server-cloudimg-amd64.img $IMG_SIZE
 cloud-localds $CLOUD_CONFIG_IMG_PATH $GIT_DIR/scripts/cloud_init.cfg
