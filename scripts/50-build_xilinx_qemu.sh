@@ -16,6 +16,8 @@ cd qemu_build
 make -j
 make install
 
+cd ${RUN_DIR}
+
 RELEASE_URL="https://cloud-images.ubuntu.com/releases/jammy/release"
 IMG_SIZE="10G"
 UBUNTU_IMG_PATH="${RUN_DIR}/ubuntu-22.04-server-cloudimg-amd64.img"
