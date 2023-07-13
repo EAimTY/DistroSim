@@ -24,7 +24,7 @@ UBUNTU_INITRD_PATH="${RUN_DIR}/ubuntu-22.04-server-cloudimg-amd64-initrd-generic
 BIOS_PATH="${RUN_DIR}/qemu_install/share/qemu/bios-256k.bin"
 
 $QEMU_TARGET \
-    -M q35,accel=kvm,kernel-irqchip=split --enable-kvm
+    -M q35,accel=kvm,kernel-irqchip=split --enable-kvm \
     -m $VM_MEM_SIZE -smp $VM_SMP_NUM -cpu qemu64,rdtscp \
     -serial mon:stdio -display none -no-reboot \
     -drive file=$UBUNTU_IMG_PATH \
