@@ -17,11 +17,11 @@ RP_CHAN_NUM="0"
 PCIE_ROOT_SLOT_NUM="1"
 EXIT_ERR_CODE="1"
 
-UBUNTU_IMG_PATH="${RUN_DIR}/ubuntu-22.04-server-cloudimg-amd64.img"
+UBUNTU_IMG_PATH="${RUN_DIR}/ubuntu-20.04-server-cloudimg-amd64.img"
 CLOUD_CONFIG_IMG_PATH="${RUN_DIR}/cloud_init.img"
-UBUNTU_KERNEL_PATH="${RUN_DIR}/ubuntu-22.04-server-cloudimg-amd64-vmlinuz-generic"
-UBUNTU_INITRD_PATH="${RUN_DIR}/ubuntu-22.04-server-cloudimg-amd64-initrd-generic"
-BIOS_PATH="${RUN_DIR}/qemu_install/share/qemu/bios-256k.bin"
+UBUNTU_KERNEL_PATH="${RUN_DIR}/ubuntu-20.04-server-cloudimg-amd64-vmlinuz-generic"
+UBUNTU_INITRD_PATH="${RUN_DIR}/ubuntu-20.04-server-cloudimg-amd64-initrd-generic"
+BIOS_PATH="${RUN_DIR}/qemu/pc-bios/bios-256k.bin"
 
 $QEMU_TARGET \
     -M q35,accel=kvm,kernel-irqchip=split --enable-kvm \
