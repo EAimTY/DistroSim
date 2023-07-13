@@ -6,7 +6,7 @@ mkdir -p ${RUN_DIR}
 
 cd ${RUN_DIR}
 
-QEMU_TARGET="qemu-system-x86_64"
+QEMU_TARGET="${RUN_DIR}/qemu_install/bin/qemu-system-x86_64"
 IMG_SIZE="10G"
 VM_MEM_SIZE="4G"
 VM_SMP_NUM="4"
@@ -21,7 +21,7 @@ UBUNTU_IMG_PATH="${RUN_DIR}/ubuntu-22.04-server-cloudimg-amd64.img"
 CLOUD_CONFIG_IMG_PATH="${RUN_DIR}/cloud_init.img"
 UBUNTU_KERNEL_PATH="${RUN_DIR}/ubuntu-22.04-server-cloudimg-amd64-vmlinuz-generic"
 UBUNTU_INITRD_PATH="${RUN_DIR}/ubuntu-22.04-server-cloudimg-amd64-initrd-generic"
-BIOS_PATH="${RUN_DIR}/qemu/pc-bios/bios-256k.bin"
+BIOS_PATH="${RUN_DIR}/qemu_install/share/qemu/bios-256k.bin"
 
 $QEMU_TARGET \
     -M q35,accel=kvm,kernel-irqchip=split --enable-kvm
