@@ -21,7 +21,7 @@ DATA_SIZE_1K=1024
 DATA_SIZE_4K=4096
 DATA_SIZE_8K=8192
 
-insmod $DRIVER_DIR/QDMA/linux-kernel/bin/qdma-pf.ko mode=${DIRMODE}
+insmod $DRIVER_DIR/QDMA/linux-kernel/bin/qdma-pf.ko
 
 $DRIVER_DIR/QDMA/linux-kernel/bin/dma-ctl ${DRVDEV} q add idx 0 mode mm dir h2c
 $DRIVER_DIR/QDMA/linux-kernel/bin/dma-ctl ${DRVDEV} q add idx 0 mode mm dir c2h
