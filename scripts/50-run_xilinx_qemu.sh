@@ -36,4 +36,5 @@ $QEMU_TARGET \
     -device ioh3420,id=rootport1,slot=$PCIE_ROOT_SLOT_NUM \
     -device remote-port-pci-adaptor,bus=rootport1,id=rp0 \
     -device remote-port-pcie-root-port,id=rprootport,slot=$RP_PCIE_SLOT_NUM,rp-adaptor0=rp,rp-chan0=$RP_CHAN_NUM \
+    -machine-path $RUN_DIR \
     -append "root=/dev/sda1 rootwait console=tty1 console=ttyS0 intel_iommu=on"
