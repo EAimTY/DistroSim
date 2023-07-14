@@ -13,7 +13,6 @@ VM_SMP_NUM="16"
 RP_PCIE_SLOT_NUM="0"
 RP_CHAN_NUM="0"
 PCIE_ROOT_SLOT_NUM="1"
-EXIT_ERR_CODE="1"
 
 UBUNTU_IMG_PATH="${RUN_DIR}/ubuntu-20.04-server-cloudimg-amd64.img"
 CLOUD_CONFIG_IMG_PATH="${RUN_DIR}/cloud_init.img"
