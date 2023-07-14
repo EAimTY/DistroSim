@@ -11,3 +11,4 @@ cd ${RUN_DIR}
 git clone https://github.com/Xilinx/dma_ip_drivers.git
 cd dma_ip_drivers/QDMA/linux-kernel
 make TANDEM_BOOT_SUPPORTED=1 KDIR=/usr/src/linux-headers-$(uname -r)
+make install
