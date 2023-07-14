@@ -12,8 +12,8 @@ LD_LIBRARY_PATH=${RUN_DIR}/systemc-2.3.3/lib-linux64/ ${GIT_DIR}/pcie/versal/cpm
 
 QEMU_TARGET="${RUN_DIR}/qemu_install/bin/qemu-system-x86_64"
 IMG_SIZE="10G"
-VM_MEM_SIZE="16G"
-VM_SMP_NUM="16"
+VM_MEM_SIZE="8G"
+VM_SMP_NUM="8"
 RP_PCIE_SLOT_NUM="0"
 RP_CHAN_NUM="0"
 PCIE_ROOT_SLOT_NUM="1"
