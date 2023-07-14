@@ -12,7 +12,7 @@ LD_LIBRARY_PATH=${RUN_DIR}/systemc-2.3.3/lib-linux64/ ${GIT_DIR}/pcie/versal/cpm
 
 QEMU_TARGET="${RUN_DIR}/qemu_install/bin/qemu-system-x86_64"
 IMG_SIZE="10G"
-VM_MEM_SIZE="8G"
+VM_MEM_SIZE="16G"
 VM_SMP_NUM="8"
 RP_PCIE_SLOT_NUM="0"
 RP_CHAN_NUM="0"
@@ -23,8 +23,6 @@ CLOUD_CONFIG_IMG_PATH="${RUN_DIR}/cloud_init.img"
 UBUNTU_KERNEL_PATH="${RUN_DIR}/ubuntu-20.04-server-cloudimg-amd64-vmlinuz-generic"
 UBUNTU_INITRD_PATH="${RUN_DIR}/ubuntu-20.04-server-cloudimg-amd64-initrd-generic"
 BIOS_PATH="${RUN_DIR}/qemu/pc-bios/bios-256k.bin"
-
-VM_SSH_PORT="57492"
 
 $QEMU_TARGET \
     -M q35,accel=kvm,kernel-irqchip=split --enable-kvm \
@@ -40,5 +38,4 @@ $QEMU_TARGET \
     -device remote-port-pci-adaptor,bus=rootport1,id=rp0 \
     -device remote-port-pcie-root-port,id=rprootport,slot=$RP_PCIE_SLOT_NUM,rp-adaptor0=rp,rp-chan0=$RP_CHAN_NUM \
     -machine-path $RUN_DIR \
-    -append "root=/dev/sda1 rootwait console=tty1 console=ttyS0 intel_iommu=on" \
-    -netdev type=user,id=net0,hostfwd=tcp::$VM_SSH_PORT-:22
+    -append "root=/dev/sda1 rootwait console=tty1 console=ttyS0 intel_iommu=on"
