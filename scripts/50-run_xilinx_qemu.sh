@@ -42,6 +42,6 @@ $QEMU_TARGET \
     -machine-path $RUN_DIR \
     -device virtio-net-pci,netdev=net0 \
     -netdev user,id=net0,hostfwd=tcp::$VM_SSH_PORT-:22 \
-    -s -S \
+    -chardev socket,path=$RUN_DIR/gdb-socket,server=on,wait=off,id=gdb0 -gdb chardev:gdb0 -S \
     -append "root=/dev/sda1 rootwait console=tty1 console=ttyS0 intel_iommu=on nokaslr" \
     &>/dev/null & disown;
