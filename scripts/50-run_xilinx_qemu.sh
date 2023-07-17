@@ -6,7 +6,7 @@ mkdir -p ${RUN_DIR}
 
 cd ${RUN_DIR}
 
-killall cpm5-qdma-demo
+killall -u ${USER} cpm5-qdma-demo qemu-system-x86_64
 
 LD_LIBRARY_PATH=${RUN_DIR}/systemc-2.3.3/lib-linux64/ ${GIT_DIR}/pcie/versal/cpm5-qdma-demo unix:${RUN_DIR}/qemu-rport-_machine_peripheral_rp0_rp 10000 &>/dev/null & disown;
 
@@ -24,6 +24,8 @@ UBUNTU_KERNEL_PATH="${RUN_DIR}/ubuntu-20.04-server-cloudimg-amd64-vmlinuz-generi
 UBUNTU_INITRD_PATH="${RUN_DIR}/ubuntu-20.04-server-cloudimg-amd64-initrd-generic"
 BIOS_PATH="${RUN_DIR}/qemu/pc-bios/bios-256k.bin"
 
+VM_SSH_PORT="47183"
+
 $QEMU_TARGET \
     -M q35,accel=kvm,kernel-irqchip=split --enable-kvm \
     -m $VM_MEM_SIZE -smp $VM_SMP_NUM -cpu qemu64,rdtscp \
@@ -38,4 +40,7 @@ $QEMU_TARGET \
     -device remote-port-pci-adaptor,bus=rootport1,id=rp0 \
     -device remote-port-pcie-root-port,id=rprootport,slot=$RP_PCIE_SLOT_NUM,rp-adaptor0=rp,rp-chan0=$RP_CHAN_NUM \
     -machine-path $RUN_DIR \
-    -append "root=/dev/sda1 rootwait console=tty1 console=ttyS0 intel_iommu=on"
+    -device virtio-net-pci,netdev=net0 \
+    -netdev user,id=net0,hostfwd=tcp::$VM_SSH_PORT-:22 \
+    -append "root=/dev/sda1 rootwait console=tty1 console=ttyS0 intel_iommu=on" \
+    &>/dev/null & disown;
