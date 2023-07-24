@@ -49,6 +49,9 @@ VM_SSH_PORT="47183"
 
 killall -u ${USER} cpm5-qdma-demo qemu-system-x86_64 || true
 
+echo "" > ${QEMU_LOG_PATH}
+echo "" > ${CPM_LOG_PATH}
+
 LD_LIBRARY_PATH=${RUN_DIR}/systemc-2.3.3/lib-linux64/ ${GIT_DIR}/pcie/versal/cpm5-qdma-demo unix:${RUN_DIR}/qemu-rport-_machine_peripheral_rp0_rp 10000 > $CPM_LOG_PATH 2>&1 & disown;
 
 QEMU_COMMAND="${QEMU_TARGET} \
