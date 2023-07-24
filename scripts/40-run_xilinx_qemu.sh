@@ -48,7 +48,7 @@ VM_SSH_PORT="47183"
 
 GID=$(id -g)
 
-killall -u ${USER} cpm5-qdma-demo qemu-system-x86_64 || true
+killall -u ${USER} cpm5-qdma-demo qemu-system-x86_64 &>/dev/null || true
 
 echo "" > ${QEMU_LOG_PATH}
 echo "" > ${CPM_LOG_PATH}
