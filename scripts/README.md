@@ -26,10 +26,19 @@ The default password should be `ubuntu`.
 
 ## Scripts in Guest
 
-Dependencies:
+First, temporarily mount the shared folder with:
 
 ```
-build-essential libaio1 libaio-dev kmod linux-headers-generic
+mkdir -p /mnt/DistroSim
+mount -t 9p -o trans=virtio,version=9p2000.L,rw distrosim /mnt/DistroSim
+```
+
+Run scripts 50 to configure the guest system, including installing dependencies and setting up the environment. After this step, the guest system is automatically powered off.
+
+The guest system can be accessed with root user without password:
+
+```
+ssh -p 47183 root@127.0.0.1
 ```
 
 Run script 60 to build and install the kernel module.
