@@ -82,4 +82,5 @@ fi
 
 eval "${QEMU_COMMAND} &>${QEMU_LOG_PATH} & disown;"
 
+sleep 1
 cat ${QEMU_LOG_PATH}
