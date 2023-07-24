@@ -30,7 +30,7 @@ First, temporarily mount the shared folder with:
 
 ```
 mkdir -p /mnt/DistroSim
-mount -t 9p -o trans=virtio,version=9p2000.L,rw distrosim /mnt/DistroSim
+mount -t 9p -o rw,trans=virtio,version=9p2000.L,rw distrosim /mnt/DistroSim
 ```
 
 Run scripts 50 to configure the guest system, including installing dependencies and setting up the environment. After this step, the guest system is automatically powered off.

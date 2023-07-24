@@ -14,7 +14,7 @@ if [ "$EUID" -ne 0 ]; then
 fi
 
 mkdir -p /mnt/DistroSim
-echo "distrosim /mnt/DistroSim 9p rw,trans=virtio,version=9p2000.L 0 0" > /etc/fstab
+echo "distrosim /mnt/DistroSim 9p rw,trans=virtio,version=9p2000.L 0 0" >> /etc/fstab
 
 touch /etc/ssh/sshd_config.d/00-root.conf > /etc/ssh/sshd_config.d/00-root.conf
 echo "PasswordAuthentication yes" >> /etc/ssh/sshd_config.d/00-root.conf
