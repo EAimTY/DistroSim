@@ -41,6 +41,7 @@ UBUNTU_INITRD_PATH="${RUN_DIR}/${CLOUDIMG_NAME}-initrd-generic"
 BIOS_PATH="${RUN_DIR}/qemu/pc-bios/bios-256k.bin"
 
 GDB_SOCKET_PATH="${RUN_DIR}/gdb-socket"
+DMESG_LOG_PATH="${RUN_DIR}/dmesg.log"
 QEMU_LOG_PATH="${RUN_DIR}/qemu.log"
 CPM_LOG_PATH="${RUN_DIR}/cpm.log"
 
@@ -48,6 +49,7 @@ VM_SSH_PORT="47183"
 
 killall -u ${USER} cpm5-qdma-demo qemu-system-x86_64 &>/dev/null || true
 
+echo "" > ${DMESG_LOG_PATH}
 echo "" > ${QEMU_LOG_PATH}
 echo "" > ${CPM_LOG_PATH}
 
@@ -57,7 +59,7 @@ QEMU_COMMAND="${QEMU_TARGET} \
     -M q35,accel=kvm,kernel-irqchip=split --enable-kvm \
     -m ${VM_MEM_SIZE} -smp ${VM_SMP_NUM} -cpu qemu64,rdtscp \
     -nographic \
-    -serial file:${QEMU_LOG_PATH} \
+    -serial file:${DMESG_LOG_PATH} \
     -drive file=${UBUNTU_IMG_PATH} \
     -drive file=${CLOUD_CONFIG_IMG_PATH},format=raw \
     -kernel ${UBUNTU_KERNEL_PATH} \
@@ -78,4 +80,6 @@ if [ "${ENABLE_GDB_SOCKET}" -eq 1 ]; then
     QEMU_COMMAND+=" -chardev socket,path=${GDB_SOCKET_PATH},server=on,wait=off,id=gdb0 -gdb chardev:gdb0 -S"
 fi
 
-eval "${QEMU_COMMAND} &>/dev/null & disown;"
+eval "${QEMU_COMMAND} &>${QEMU_LOG_PATH} & disown;"
+
+cat ${QEMU_LOG_PATH}
