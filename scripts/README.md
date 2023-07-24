@@ -19,8 +19,10 @@ Connecting gdb to QEMU:
 The guest system should be running now. Connect to it with:
 
 ```
-ssh -p 47183 root@127.0.0.1
+ssh -p 47183 ubuntu@127.0.0.1
 ```
+
+The default password should be `ubuntu`.
 
 ## Scripts in Guest
 

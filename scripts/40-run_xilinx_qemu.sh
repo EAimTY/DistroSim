@@ -1,14 +1,13 @@
 #!/bin/bash
+set -o errexit
+set -o nounset
+set -o xtrace
 
 GIT_DIR=$(cd $(dirname $0)/..; pwd)
 RUN_DIR=${GIT_DIR}/run
 mkdir -p ${RUN_DIR}
 
 cd ${RUN_DIR}
-
-killall -u ${USER} cpm5-qdma-demo qemu-system-x86_64
-
-LD_LIBRARY_PATH=${RUN_DIR}/systemc-2.3.3/lib-linux64/ ${GIT_DIR}/pcie/versal/cpm5-qdma-demo unix:${RUN_DIR}/qemu-rport-_machine_peripheral_rp0_rp 10000 &>/dev/null & disown;
 
 QEMU_TARGET="${RUN_DIR}/qemu_install/bin/qemu-system-x86_64"
 IMG_SIZE="10G"
@@ -24,12 +23,21 @@ UBUNTU_KERNEL_PATH="${RUN_DIR}/ubuntu-20.04-server-cloudimg-amd64-vmlinuz-generi
 UBUNTU_INITRD_PATH="${RUN_DIR}/ubuntu-20.04-server-cloudimg-amd64-initrd-generic"
 BIOS_PATH="${RUN_DIR}/qemu/pc-bios/bios-256k.bin"
 
+GDB_SOCKET_PATH="${RUN_DIR}/gdb-socket"
+QEMU_LOG_PATH="${RUN_DIR}/qemu.log"
+CPM_LOG_PATH="${RUN_DIR}/cpm.log"
+
 VM_SSH_PORT="47183"
+
+killall -u ${USER} cpm5-qdma-demo qemu-system-x86_64
+
+LD_LIBRARY_PATH=${RUN_DIR}/systemc-2.3.3/lib-linux64/ ${GIT_DIR}/pcie/versal/cpm5-qdma-demo unix:${RUN_DIR}/qemu-rport-_machine_peripheral_rp0_rp 10000 > $CPM_LOG_PATH 2>&1 & disown;
 
 $QEMU_TARGET \
     -M q35,accel=kvm,kernel-irqchip=split --enable-kvm \
     -m $VM_MEM_SIZE -smp $VM_SMP_NUM -cpu qemu64,rdtscp \
-    -serial mon:stdio -display none -no-reboot \
+    -nographic \
+    -serial file:$QEMU_LOG_PATH \
     -drive file=$UBUNTU_IMG_PATH \
     -drive file=$CLOUD_CONFIG_IMG_PATH,format=raw \
     -kernel $UBUNTU_KERNEL_PATH \
@@ -41,7 +49,9 @@ $QEMU_TARGET \
     -device remote-port-pcie-root-port,id=rprootport,slot=$RP_PCIE_SLOT_NUM,rp-adaptor0=rp,rp-chan0=$RP_CHAN_NUM \
     -machine-path $RUN_DIR \
     -device virtio-net-pci,netdev=net0 \
+    -fsdev local,id=distrosim,path=$GIT_DIR,security_model=passthrough \
+    -device virtio-9p-pci,fsdev=distrosim,mount_tag=distrosim \
     -netdev user,id=net0,hostfwd=tcp::$VM_SSH_PORT-:22 \
-    -chardev socket,path=$RUN_DIR/gdb-socket,server=on,wait=off,id=gdb0 -gdb chardev:gdb0 -S \
-    -append "root=/dev/sda1 rootwait console=tty1 console=ttyS0 intel_iommu=on nokaslr" \
+    -chardev socket,path=$GDB_SOCKET_PATH,server=on,wait=off,id=gdb0 -gdb chardev:gdb0 -S \
+    -append "root=/dev/sda1 rootwait console=ttyS0 ignore_loglevel intel_iommu=on nokaslr" \
     &>/dev/null & disown;

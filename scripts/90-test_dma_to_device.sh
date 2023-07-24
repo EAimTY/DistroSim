@@ -1,4 +1,7 @@
 #!/bin/bash
+set -o errexit
+set -o nounset
+set -o xtrace
 
 while getopts ":s:c:" opt; do
   case $opt in
