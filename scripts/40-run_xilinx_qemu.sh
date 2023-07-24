@@ -46,8 +46,6 @@ CPM_LOG_PATH="${RUN_DIR}/cpm.log"
 
 VM_SSH_PORT="47183"
 
-GID=$(id -g)
-
 killall -u ${USER} cpm5-qdma-demo qemu-system-x86_64 &>/dev/null || true
 
 echo "" > ${QEMU_LOG_PATH}
@@ -71,7 +69,7 @@ QEMU_COMMAND="${QEMU_TARGET} \
     -device remote-port-pcie-root-port,id=rprootport,slot=${RP_PCIE_SLOT_NUM},rp-adaptor0=rp,rp-chan0=${RP_CHAN_NUM} \
     -machine-path ${RUN_DIR} \
     -device virtio-net-pci,netdev=net0 \
-    -fsdev local,id=distrosim,path=${GIT_DIR},security_model=mapped,uid=${UID},gid=${GID} \
+    -fsdev local,id=distrosim,path=${GIT_DIR},security_model=none \
     -device virtio-9p-pci,fsdev=distrosim,mount_tag=distrosim \
     -netdev user,id=net0,hostfwd=tcp::${VM_SSH_PORT}-:22 \
     -append 'root=/dev/sda1 rootwait console=ttyS0 ignore_loglevel intel_iommu=on nokaslr'"
