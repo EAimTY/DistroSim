@@ -46,7 +46,6 @@ CPM_LOG_PATH="${RUN_DIR}/cpm.log"
 
 VM_SSH_PORT="47183"
 
-UID=$(id -u)
 GID=$(id -g)
 
 killall -u ${USER} cpm5-qdma-demo qemu-system-x86_64 || true
