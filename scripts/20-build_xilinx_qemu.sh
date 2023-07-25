@@ -14,6 +14,6 @@ git clone https://github.com/Xilinx/qemu.git
 cd qemu
 mkdir qemu_build qemu_install
 cd qemu_build
-../configure --target-list=x86_64-softmmu --enable-virtfs --prefix=${RUN_DIR}/qemu_install
+../configure --target-list=x86_64-softmmu --enable-virtfs --prefix=${RUN_DIR}/qemu/qemu_install
 make -j
 make install
